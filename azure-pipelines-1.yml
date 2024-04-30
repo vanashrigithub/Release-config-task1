@@ -1,0 +1,30 @@
+[2:10 PM] Deshmukh, Ashwini
+trigger:
+
+  - main
+ 
+jobs:
+
+- job: RunPythonScripts
+
+  pool:
+
+    name: <name_of_your_self_hosted_agent_pool>
+
+  steps:
+
+  - task: UsePythonVersion@0
+
+    inputs:
+
+      versionSpec: '3.11'  # Use Python 3.11
+
+      addToPath: true
+ 
+  # Run initial_file.py with specified arguments
+
+  - script: |
+
+      python RELEASE_CONFIGURATIONS/initial_file.py Config_1 Config_2 Config_3 Config_4 Config_5
+
+    displayName: 'Run initial_file.py'
