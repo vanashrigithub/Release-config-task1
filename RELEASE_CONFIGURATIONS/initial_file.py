@@ -3,17 +3,20 @@ import sys
 
 def run_files(folder):
     folder_path = os.path.join(os.getcwd(), folder)
-    if not os.path.exists(folder_path):
-        print(f"Folder '{folder}' does not exist.")
+    try:
+        files = os.listdir(folder_path)
+    except FileNotFoundError:
+        print(f"Folder '{folder}' does not exist in {os.path.dirname(folder_path)}.")
         return
 
-    for file_name in os.listdir(folder_path):
+    for file_name in files:
         if file_name.endswith(".py"):
             file_path = os.path.join(folder_path, file_name)
-            #print(f"Running file: {file_path}")
             print('---------------------------------------------------------')
             # Execute the Python file
-            os.system(f"python {file_path}")
+            exit_code = os.system(f"python {file_path}")
+            if exit_code != 0:
+                print(f"Error running file: {file_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
